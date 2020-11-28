@@ -1,2 +1,2 @@
-# UnityShaderPlayground
-UnityShaderPlayground
+# UnityPlayground
+UnityPlayground
