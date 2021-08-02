@@ -14,7 +14,7 @@ float3 DecodeNormal(float4 enc)
 
 void CameraDepthNormalsTexture_float(float2 UV, out float3 Out)
 {
-    Out = SAMPLE_TEXTURE2D(_CameraDepthNormalsTexture, sampler_CameraDepthNormalsTexture, UV);
+    //Out = SAMPLE_TEXTURE2D(_CameraDepthNormalsTexture, sampler_CameraDepthNormalsTexture, UV);
 
-    //Out = DecodeNormal(SAMPLE_TEXTURE2D(_CameraDepthNormalsTexture, sampler_CameraDepthNormalsTexture, UV));
+    Out = DecodeNormal(SAMPLE_TEXTURE2D(_CameraDepthNormalsTexture, sampler_CameraDepthNormalsTexture, UV));
 }
