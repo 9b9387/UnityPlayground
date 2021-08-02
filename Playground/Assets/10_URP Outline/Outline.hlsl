@@ -26,6 +26,8 @@ void OutlineObject_float(float2 UV, float OutlineThickness, float DepthSensitivi
 {
     float halfScaleFloor = floor(OutlineThickness * 0.5);
     float halfScaleCeil = ceil(OutlineThickness * 0.5);
+    //float halfScaleFloor = OutlineThickness;
+    //float halfScaleCeil = OutlineThickness;
     
     float2 uvSamples[4];
     float depthSamples[4];
@@ -33,8 +35,8 @@ void OutlineObject_float(float2 UV, float OutlineThickness, float DepthSensitivi
 
     uvSamples[0] = UV + float2(-_CameraDepthTexture_TexelSize.x, -_CameraDepthTexture_TexelSize.y) * halfScaleFloor;
     uvSamples[1] = UV + float2(_CameraDepthTexture_TexelSize.x, _CameraDepthTexture_TexelSize.y) * halfScaleCeil;
-    uvSamples[2] = UV + float2(_CameraDepthTexture_TexelSize.x * halfScaleCeil, -_CameraDepthTexture_TexelSize.y * halfScaleFloor);
-    uvSamples[3] = UV + float2(-_CameraDepthTexture_TexelSize.x * halfScaleFloor, _CameraDepthTexture_TexelSize.y * halfScaleCeil);
+    uvSamples[2] = UV + float2(_CameraDepthTexture_TexelSize.x, -_CameraDepthTexture_TexelSize.y) * halfScaleFloor;
+    uvSamples[3] = UV + float2(-_CameraDepthTexture_TexelSize.x, _CameraDepthTexture_TexelSize.y) * halfScaleCeil;
 
     for(int i = 0; i < 4 ; i++)
     {
