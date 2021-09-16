@@ -2,7 +2,7 @@ Shader "Owlet/2D Unlit/Dissolve"
 {
     Properties
     {
-        _EageColor("Eage Color", Color) = (1,1,1,1)
+        _EageColor("Eage Color", Color) = (1, 1, 1, 1)
         _EageWidth("Eage Width", Range(0, 10)) = 5
         _NoiseScale("Noise Scale", Float) = 30
     }
@@ -18,7 +18,7 @@ Shader "Owlet/2D Unlit/Dissolve"
         }
         Pass
         {
-            Name "2D Dissolve"
+            Name "Owlet 2D Dissolve"
             Tags
             {
                 "LightMode" = "UniversalForward"
@@ -45,7 +45,6 @@ Shader "Owlet/2D Unlit/Dissolve"
             {
                 float3 positionOS : POSITION;
                 float4 uv : TEXCOORD0;
-                float4 color : COLOR;
 
                 UNITY_VERTEX_INPUT_INSTANCE_ID
             };
@@ -79,25 +78,29 @@ Shader "Owlet/2D Unlit/Dissolve"
                 float3 positionWS = TransformObjectToWorld(input.positionOS);
                 output.positionCS = TransformWorldToHClip(positionWS);
                 output.uv = input.uv;
-                output.color = input.color;
                 return output;
             }
 
             half4 frag(Varyings input) : SV_TARGET 
             {    
                 UNITY_SETUP_INSTANCE_ID(input);
-                // generate noise
+
+                // generate noise, define in Assets/Shaders/SimpleNoise.hlsl
                 float noise = SimpleNoise(input.uv, _NoiseScale);
+
                 // remap sin time -1,1 to 0,1
                 float remap_sintime = (_SinTime.w + 1) * 0.5;
+
                 // calculate eage color
                 float step_noise_inner = step(noise, remap_sintime);
                 float step_noise_outer = step(noise, remap_sintime + _EageWidth * 0.01f);
                 float3 eage_color = (step_noise_outer - step_noise_inner) * _EageColor.rgb;
-                // add eage color
+
                 UnityTexture2D unity_texture = UnityBuildTexture2DStructNoScale(_MainTex);
                 half4 color = SAMPLE_TEXTURE2D(unity_texture.tex, unity_texture.samplerstate, input.uv.xy);
+                // add eage color
                 color.rgb = color.rgb * step_noise_inner + eage_color.rgb;
+
                 // calculate alpha
                 color.a = step_noise_outer * color.a;
 				return color;
