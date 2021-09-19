@@ -1,4 +1,4 @@
-Shader "UI/Grey" 
+Shader "Owlet/2D Unlit/Grey" 
 {
     Properties
     {
@@ -16,7 +16,7 @@ Shader "UI/Grey"
         }
         Pass
         {
-            Name "Grey"
+            Name "Owlet 2D Grey"
             Tags
             {
                 "LightMode" = "UniversalForward"
