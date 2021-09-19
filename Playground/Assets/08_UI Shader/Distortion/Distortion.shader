@@ -76,8 +76,7 @@ Shader "Owlet/2D Unlit/Distortion"
                 UNITY_SETUP_INSTANCE_ID(input);
                 UNITY_TRANSFER_INSTANCE_ID(input, output);
 
-                float3 positionWS = TransformObjectToWorld(input.positionOS);
-                output.positionCS = TransformWorldToHClip(positionWS);
+                output.positionCS = TransformObjectToHClip(input.positionOS);
                 output.uv = input.uv;
                 return output;
             }
