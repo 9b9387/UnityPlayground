@@ -455,7 +455,7 @@
         }
     },
     "m_Path": "Owlet/2D Unlit Graph",
-    "m_ConcretePrecision": 0,
+    "m_ConcretePrecision": 1,
     "m_PreviewMode": 2,
     "m_OutputNode": {
         "m_Id": ""
@@ -2628,9 +2628,9 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "r": 0.1769757717847824,
-        "g": 0.723574697971344,
-        "b": 0.9150943160057068,
+        "r": 0.0,
+        "g": 0.7446808815002441,
+        "b": 1.0,
         "a": 1.0
     },
     "m_ColorMode": 0
