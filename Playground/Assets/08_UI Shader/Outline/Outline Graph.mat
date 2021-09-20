@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hologram
-  m_Shader: {fileID: 4800000, guid: d0bd491ffe1c0424d8f1909b0c39c638, type: 3}
+  m_Name: Outline Graph
+  m_Shader: {fileID: -6465566751694194690, guid: cbbed09706f0e423085a24d6bc35dd08, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -63,6 +63,38 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_034371a65f594e0a97fa3fb272edaeef_Out_0:
+        m_Texture: {fileID: 2800000, guid: 0d181aeec18864f23b9de99b7d09fc52, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_1eee6306ca624dd3bb884b0ebcaaf705_Out_0:
+        m_Texture: {fileID: 2800000, guid: 0d181aeec18864f23b9de99b7d09fc52, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_1fdb2fcd5df84fd4808cdb6b6f5f0776_Out_0:
+        m_Texture: {fileID: 2800000, guid: 0d181aeec18864f23b9de99b7d09fc52, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_25ef6d31ce1f466899babe3c8cd610a9_Out_0:
+        m_Texture: {fileID: 2800000, guid: 0d181aeec18864f23b9de99b7d09fc52, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_91fc8c93a6fa402b84dc71e6320cc806_Out_0:
+        m_Texture: {fileID: 2800000, guid: 0d181aeec18864f23b9de99b7d09fc52, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_b26e5403100a4e88ba208b5597f68cfe_Out_0:
+        m_Texture: {fileID: 2800000, guid: 0d181aeec18864f23b9de99b7d09fc52, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_e46175d7e251483e9a6bcd1d87e35192_Out_0:
+        m_Texture: {fileID: 2800000, guid: 0d181aeec18864f23b9de99b7d09fc52, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_f21e48a683be4d5f92461be02cf032c8_Out_0:
+        m_Texture: {fileID: 2800000, guid: 0d181aeec18864f23b9de99b7d09fc52, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -76,6 +108,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_0277ac255e66429f8404051a5ebbf22f: 2
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -90,8 +123,6 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HologramFrequency: 5
-    - _HologramSpeed: 0.5
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -105,13 +136,13 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_c3ae3f40e9e14cf99b38fa9c93e9994a: {r: 0.90170395, g: 1, b: 0, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HologramColor: {r: 0, g: 1, b: 0.9883151, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &4234459039645788376
+--- !u!114 &8287036364623941032
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
