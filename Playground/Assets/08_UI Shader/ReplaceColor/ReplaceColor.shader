@@ -93,8 +93,8 @@ Shader "Owlet/2D Unlit/ReplaceColor"
                 UnityTexture2D unity_texture = UnityBuildTexture2DStructNoScale(_MainTex);
                 half4 color = SAMPLE_TEXTURE2D(unity_texture.tex, unity_texture.samplerstate, input.uv.xy);
 
-                float distance = distance(_FromColor, _ToColor);
-				return lerp(_ToColor, color, saturate((distance - _Range) / max(_Fuzziness, 1e-5f)));;
+                half dis = distance(_FromColor, _ToColor);
+				return lerp(_ToColor, color, saturate((dis - _Range) / max(_Fuzziness, 1e-5f)));;
             } 
             ENDHLSL
         }
