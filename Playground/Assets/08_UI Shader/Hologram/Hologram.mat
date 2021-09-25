@@ -90,7 +90,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HologramFrequency: 5
+    - _HologramFrequency: 6.1
     - _HologramSpeed: 0.5
     - _Metallic: 0
     - _OcclusionStrength: 1
