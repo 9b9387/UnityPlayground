@@ -65,6 +65,7 @@ namespace Owlet
 
         public virtual void Dispose()
         {
+
         }
 
         public bool Enabled
@@ -516,36 +517,7 @@ namespace Owlet
 
         }
 
-        /// <summary>
-        /// Process cancelled touches
-        /// </summary>
-        /// <param name="touches">Touches</param>
-        public void ProcessTouchesCancelled(ICollection<GestureTouch> touches)
-        {
-            if (!Enabled || touches == null || touches.Count == 0 || !TouchesIntersect(touches, currentTrackedTouches))
-            {
-                return;
-            }
-
-            try
-            {
-                foreach (GestureTouch t in touches)
-                {
-                    if (currentTrackedTouches.Contains(t))
-                    {
-                        SetState(GestureRecognizerState.Failed);
-                        return;
-                    }
-                }
-            }
-            finally
-            {
-                StopTrackingTouches(touches);
-                justEnded = true;
-            }
-        }
-
-                protected bool CalculateFocus(ICollection<GestureTouch> touches)
+        protected bool CalculateFocus(ICollection<GestureTouch> touches)
         {
             return CalculateFocus(touches, false);
         }
