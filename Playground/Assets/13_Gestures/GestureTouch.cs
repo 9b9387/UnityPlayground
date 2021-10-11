@@ -34,6 +34,7 @@ namespace Owlet
         public float X { get { return ScreenX; } }
         public float ScreenY { get { return screenY; } }
         public float Y { get { return ScreenY; } }
+        public float Pressure { get { return pressure; } }
 
         public int CompareTo(GestureTouch other)
         {

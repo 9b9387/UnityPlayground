@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Owlet;
 using UnityEngine;
@@ -22,6 +23,26 @@ public class GestureManager : MonoBehaviour
     {
         EnhancedTouchSupport.Enable();
         CreateTapGesture();
+
+        GestureRecognizer.MainThreadCallback = (float delay, System.Action callback) =>
+        {
+            StartCoroutine(MainThreadCallback(delay, callback));
+        };
+    }
+
+    private IEnumerator MainThreadCallback(float delay, System.Action action)
+    {
+        if (action != null)
+        {
+            System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
+            timer.Start();
+            yield return null;
+            while ((float)timer.Elapsed.TotalSeconds < delay)
+            {
+                yield return null;
+            }
+            action();
+        }
     }
 
     // Update is called once per frame
@@ -29,24 +50,28 @@ public class GestureManager : MonoBehaviour
     {
         //Debug.Log(Touch.activeTouches.Count);
 
-        for (int i = 0; i < Touch.activeTouches.Count; i++)
-        {
-            var touch = Touch.activeTouches[i];
-            Debug.Log($"pahse: {touch.phase}");
-        }
+        //for (int i = 0; i < Touch.activeTouches.Count; i++)
+        //{
+        //    var touch = Touch.activeTouches[i];
+        //    Debug.Log($"pahse: {touch.phase}");
+        //}
 
         currentTouches.Clear();
+        touchesBegan.Clear();
+        touchesMoved.Clear();
+        touchesEnded.Clear();
 
         ProcessTouches();
 
-        gesturesTemp.AddRange(gestures);
-        foreach (GestureRecognizer gesture in gesturesTemp)
+        //gesturesTemp.AddRange(gestures);
+        //Debug.Log($"{currentTouches.Count} {touchesBegan.Count} {touchesMoved.Count} {touchesEnded.Count} {gestures.Count}");
+        foreach (GestureRecognizer gesture in gestures)
         {
             gesture.ProcessTouchesBegan(touchesBegan);
             gesture.ProcessTouchesMoved(touchesMoved);
             gesture.ProcessTouchesEnded(touchesEnded);
         }
-        gesturesTemp.Clear();
+        //gesturesTemp.Clear();
     }
 
     private void ProcessTouches()
@@ -56,6 +81,8 @@ public class GestureManager : MonoBehaviour
         {
             Touch t = Touch.activeTouches[i];
             GestureTouch g = GestureTouchFromTouch(ref t);
+            //string d = string.Format("Touch: {0} {1}", t.screenPosition, t.phase);
+            //Debug.Log(d);
             FingersProcessTouch(ref g);
         }
     }
@@ -78,8 +105,7 @@ public class GestureManager : MonoBehaviour
             FingersEndTouch(ref g);
         }
 
-        // string d = string.Format ("Touch: {0} {1}", t.position, t.phase);
-        // Debug.Log (d);
+
     }
 
     private void FingersBeginTouch(ref GestureTouch g)
@@ -88,12 +114,14 @@ public class GestureManager : MonoBehaviour
         {
             previousTouches.Add(g);
         }
+        //Debug.Log("FingersBeginTouch");
         touchesBegan.Add(g);
         previousTouchPositions[g.Id] = new Vector2(g.X, g.Y);
     }
 
     private void FingersContinueTouch(ref GestureTouch g)
     {
+        //Debug.Log("FingersContinueTouch");
         touchesMoved.Add(g);
         previousTouchPositions[g.Id] = new Vector2(g.X, g.Y);
     }
@@ -102,6 +130,7 @@ public class GestureManager : MonoBehaviour
     {
         if (!lost)
         {
+            //Debug.Log("FingersEndTouch");
             touchesEnded.Add(g);
         }
         previousTouchPositions.Remove(g.Id);

@@ -3,6 +3,7 @@
 // Data: 2021/10/8
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Owlet
 {
@@ -38,12 +39,21 @@ namespace Owlet
         private readonly List<GestureTouch> tempTouches = new List<GestureTouch>();
         private readonly List<KeyValuePair<float, float>> touchStartLocations = new List<KeyValuePair<float, float>>();
         private readonly HashSet<int> ignoreTouchIds = new HashSet<int>();
+        public float StartFocusX { get; private set; }
+        public float StartFocusY { get; private set; }
+        public float DeltaX { get; private set; }
+        public float DeltaY { get; private set; }
+        public float DistanceX { get; private set; }
+        public float DistanceY { get; private set; }
+        public float Pressure { get; private set; }
+        protected float PrevFocusX { get; private set; }
+        protected float PrevFocusY { get; private set; }
 
         public GestureRecognizer()
         {
             state = GestureRecognizerState.Possible;
             //PlatformSpecificViewScale = 1.0f;
-            //StartFocusX = StartFocusY = float.MinValue;
+            StartFocusX = StartFocusY = float.MinValue;
             currentTrackedTouchesReadOnly = new System.Collections.ObjectModel.ReadOnlyCollection<GestureTouch>(currentTrackedTouches);
             //AllowSimultaneousExecutionIfPlatformSpecificViewsAreDifferent = true;
         }
@@ -78,14 +88,14 @@ namespace Owlet
             {
                 currentTrackedTouches.Clear();
             }
-            //requireGestureRecognizersToFailThatHaveFailed.Clear();
-            //touchStartLocations.Clear();
-            //StartFocusX = PrevFocusX = StartFocusY = PrevFocusY = float.MinValue;
-            //FocusX = FocusY = DeltaX = DeltaY = DistanceX = DistanceY = 0.0f;
-            //Pressure = 0.0f;
+            requireGestureRecognizersToFailThatHaveFailed.Clear();
+            touchStartLocations.Clear();
+            StartFocusX = PrevFocusX = StartFocusY = PrevFocusY = float.MinValue;
+            FocusX = FocusY = DeltaX = DeltaY = DistanceX = DistanceY = 0.0f;
+            Pressure = 0.0f;
             //velocityTracker.Reset();
-            //RemoveFromActiveGestures();
-            //SetState(GestureRecognizerState.Possible);
+            RemoveFromActiveGestures();
+            SetState(GestureRecognizerState.Possible);
         }
 
         public int MaximumNumberOfTouchesToTrack
@@ -122,6 +132,10 @@ namespace Owlet
                 {
                     TouchesBegan(touches);
                 }
+            }
+            else
+            {
+                Debug.Log($"return {State} {TrackTouches(touches)}");
             }
         }
 
@@ -182,7 +196,7 @@ namespace Owlet
 
         protected bool SetState(GestureRecognizerState value)
         {
-            // this.Log("To state: " + value + ": " + this.ToString());
+             //Debug.Log("To state: " + value + ": " + this.ToString());
 
             if (value == GestureRecognizerState.Failed)
             {
@@ -237,7 +251,31 @@ namespace Owlet
 
         public static void RunActionAfterDelay(float seconds, Action action)
         {
-            //RunActionAfterDelayInternal(seconds, action);
+            RunActionAfterDelayInternal(seconds, action);
+        }
+
+        public delegate void CallbackMainThreadDelegate(float delay, Action callback);
+        public static CallbackMainThreadDelegate MainThreadCallback;
+
+        static void RunActionAfterDelayInternal(float seconds, Action action)
+        {
+            if (action == null)
+            {
+                return;
+            }
+
+#if PCL || PORTABLE || HAS_TASKS
+
+            await System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(seconds));
+
+            action();
+
+#else
+
+            MainThreadCallback(seconds, action);
+
+#endif
+
         }
 
         public virtual bool ResetOnEnd { get { return true; } }
@@ -245,6 +283,7 @@ namespace Owlet
 
         private void EndGesture()
         {
+            //Debug.Log("EndGesture");
             state = GestureRecognizerState.Ended;
             ReceivedAdditionalTouches = false;
             lastTrackTouchCount = 0;
@@ -255,6 +294,7 @@ namespace Owlet
             }
             else
             {
+                //Debug.Log("EndGesture Possible");
                 SetState(GestureRecognizerState.Possible);
                 touchStartLocations.Clear();
                 RemoveFromActiveGestures();
@@ -502,6 +542,116 @@ namespace Owlet
             {
                 StopTrackingTouches(touches);
                 justEnded = true;
+            }
+        }
+
+                protected bool CalculateFocus(ICollection<GestureTouch> touches)
+        {
+            return CalculateFocus(touches, false);
+        }
+
+        /// <summary>
+        /// Calculate the focus of the gesture
+        /// </summary>
+        /// <param name="touches">Touches</param>
+        /// <param name="resetFocus">True to force reset of the start focus, false otherwise</param>
+        /// <returns>True if this was the first focus calculation, false otherwise</returns>
+        protected bool CalculateFocus(ICollection<GestureTouch> touches, bool resetFocus)
+        {
+            bool first = resetFocus || (StartFocusX == float.MinValue || StartFocusY == float.MinValue);
+
+            FocusX = 0.0f;
+            FocusY = 0.0f;
+            Pressure = 0.0f;
+
+            foreach (GestureTouch t in touches)
+            {
+                FocusX += t.X;
+                FocusY += t.Y;
+                Pressure += t.Pressure;
+            }
+
+            float invTouchCount = 1.0f / (float)touches.Count;
+            FocusX *= invTouchCount;
+            FocusY *= invTouchCount;
+            Pressure *= invTouchCount;
+
+            if (first)
+            {
+                StartFocusX = FocusX;
+                StartFocusY = FocusY;
+                DeltaX = 0.0f;
+                DeltaY = 0.0f;
+                //velocityTracker.Restart();
+            }
+            else
+            {
+                DeltaX = FocusX - PrevFocusX;
+                DeltaY = FocusY - PrevFocusY;
+            }
+
+            //velocityTracker.Update(FocusX, FocusY);
+
+            DistanceX = FocusX - StartFocusX;
+            DistanceY = FocusY - StartFocusY;
+
+            PrevFocusX = FocusX;
+            PrevFocusY = FocusY;
+
+            return first;
+        }
+
+        protected bool IgnoreTouch(int id)
+        {
+            return ignoreTouchIds.Add(id);
+        }
+
+        protected bool AreTrackedTouchesWithinDistance(float thresholdUnits)
+        {
+            if (CurrentTrackedTouches.Count == 0 || touchStartLocations.Count == 0)
+            {
+                Debug.Log("Distance fail, no current or start locations");
+                return false;
+            }
+            foreach (GestureTouch touch in CurrentTrackedTouches)
+            {
+                bool withinDistance = false;
+                for (int i = touchStartLocations.Count - 1; i >= 0; i--)
+                {
+                    if (PointsAreWithinDistance(touch.X, touch.Y, touchStartLocations[i].Key, touchStartLocations[i].Value, thresholdUnits))
+                    {
+                        withinDistance = true;
+                        break;
+                    }
+                    Debug.Log("Distance fail: " + touch.X + ", " + touch.Y + ", " + touchStartLocations[i].Key + ", " + touchStartLocations[i].Value + ", " + thresholdUnits);
+                }
+                if (!withinDistance)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool PointsAreWithinDistance(float x1, float y1, float x2, float y2, float d)
+        {
+            return (DistanceBetweenPoints(x1, y1, x2, y2) <= d);
+        }
+
+        public float DistanceBetweenPoints(float x1, float y1, float x2, float y2)
+        {
+            float a = (float)(x2 - x1);
+            float b = (float)(y2 - y1);
+            float d = (float)Math.Sqrt(a * a + b * b);// * PlatformSpecificViewScale;
+            return d;// DeviceInfo.PixelsToUnits(d);
+        }
+
+        protected void TrackCurrentTrackedTouchesStartLocations()
+        {
+            // add start touch locations
+            foreach (GestureTouch touch in CurrentTrackedTouches)
+            {
+                touchStartLocations.Add(new KeyValuePair<float, float>(touch.X, touch.Y));
             }
         }
     }
