@@ -7,8 +7,8 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 public class GestureManager : MonoBehaviour
 {
-    private readonly List<GestureRecognizer> gestures = new List<GestureRecognizer>();
-    private readonly List<GestureRecognizer> gesturesTemp = new List<GestureRecognizer>();
+    private readonly List<GestureRecognizer_OLD> gestures = new List<GestureRecognizer_OLD>();
+    private readonly List<GestureRecognizer_OLD> gesturesTemp = new List<GestureRecognizer_OLD>();
     private readonly List<GestureTouch> currentTouches = new List<GestureTouch>();
     private readonly Dictionary<int, Vector2> previousTouchPositions = new Dictionary<int, Vector2>();
     private readonly List<GestureTouch> touchesBegan = new List<GestureTouch>();
@@ -24,7 +24,7 @@ public class GestureManager : MonoBehaviour
         EnhancedTouchSupport.Enable();
         CreateTapGesture();
 
-        GestureRecognizer.MainThreadCallback = (float delay, System.Action callback) =>
+        GestureRecognizer_OLD.MainThreadCallback = (float delay, System.Action callback) =>
         {
             StartCoroutine(MainThreadCallback(delay, callback));
         };
@@ -65,7 +65,7 @@ public class GestureManager : MonoBehaviour
 
         //gesturesTemp.AddRange(gestures);
         //Debug.Log($"{currentTouches.Count} {touchesBegan.Count} {touchesMoved.Count} {touchesEnded.Count} {gestures.Count}");
-        foreach (GestureRecognizer gesture in gestures)
+        foreach (GestureRecognizer_OLD gesture in gestures)
         {
             gesture.ProcessTouchesBegan(touchesBegan);
             gesture.ProcessTouchesMoved(touchesMoved);
@@ -187,7 +187,7 @@ public class GestureManager : MonoBehaviour
         AddGesture(tapGesture);
     }
 
-    public bool AddGesture(GestureRecognizer gesture)
+    public bool AddGesture(GestureRecognizer_OLD gesture)
     {
         if (gesture == null || gestures.Contains(gesture))
         {
@@ -197,7 +197,7 @@ public class GestureManager : MonoBehaviour
         return true;
     }
 
-    private void TapGestureCallback(GestureRecognizer gesture)
+    private void TapGestureCallback(GestureRecognizer_OLD gesture)
     {
         if (gesture.State == GestureRecognizerState.Ended)
         {

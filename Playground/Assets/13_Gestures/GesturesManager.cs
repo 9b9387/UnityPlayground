@@ -6,13 +6,13 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 public class GesturesManager : MonoBehaviour
 {
-    private readonly List<GesturesRecognizer> gestures = new List<GesturesRecognizer>();
+    private readonly List<GestureRecognizer> gestures = new List<GestureRecognizer>();
     // Start is called before the first frame update
     void Start()
     {
         EnhancedTouchSupport.Enable();
 
-        gestures.Add(new GesturesRecognizer());
+        gestures.Add(new GestureRecognizer());
     }
 
     // Update is called once per frame

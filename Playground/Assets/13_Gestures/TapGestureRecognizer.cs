@@ -9,7 +9,7 @@ using Debug = UnityEngine.Debug;
 
 namespace Owlet
 { 
-    public class TapGestureRecognizer : GestureRecognizer
+    public class TapGestureRecognizer : GestureRecognizer_OLD
     {
         private int tapCount;
         private readonly Stopwatch timer = new Stopwatch();
