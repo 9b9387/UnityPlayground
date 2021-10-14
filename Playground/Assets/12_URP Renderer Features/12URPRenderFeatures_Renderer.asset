@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 12URPRenderFeatures_Renderer
   m_EditorClassIdentifier: 
   m_RendererFeatures:
-  - {fileID: 6201232215002728745}
-  m_RendererFeatureMap: 2949f210d8330f56
+  - {fileID: 1652795821528388021}
+  m_RendererFeatureMap: b51173f40ae9ef16
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   shaders:
     blitPS: {fileID: 4800000, guid: c17132b1f77d20942aa75f8429c0f8bc, type: 3}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
   m_AccurateGbufferNormals: 0
---- !u!114 &6201232215002728745
+--- !u!114 &1652795821528388021
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -51,7 +51,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26d89950fbad414b81b655864b46690, type: 3}
-  m_Name: NewBlurRenderPassFeature
+  m_Script: {fileID: 11500000, guid: 66ee9c9ef2f274ed89524ab65d56e6d3, type: 3}
+  m_Name: BlitMaterialFeature
   m_EditorClassIdentifier: 
   m_Active: 1
+  settings:
+    material: {fileID: 0}
+    materialPassIndex: -1
+    renderEvent: 300
