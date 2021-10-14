@@ -6,7 +6,7 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 public class GestureRecognizer
 {
-    protected readonly List<Touch> trackedTouches = new List<Touch>();
+    protected readonly List<int> trackedTouches = new List<int>();
     private readonly HashSet<GestureRecognizer> failGestures = new HashSet<GestureRecognizer>();
     private readonly HashSet<GestureRecognizer> requireGestureRecognizersToFailThatHaveFailed = new HashSet<GestureRecognizer>();
     private readonly HashSet<GestureRecognizer> requireGestureRecognizersToFail = new HashSet<GestureRecognizer>();
@@ -52,9 +52,9 @@ public class GestureRecognizer
     {
         foreach (var touch in touches)
         {
-            if(state == GestureRecognizerState.Possible && trackedTouches.Contains(touch) == false)
+            if(state == GestureRecognizerState.Possible && trackedTouches.Contains(touch.touchId) == false)
             {
-                trackedTouches.Add(touch);
+                trackedTouches.Add(touch.touchId);
             }
         }
     }

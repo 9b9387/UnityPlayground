@@ -7,6 +7,8 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 public class GesturesManager : MonoBehaviour
 {
     private readonly List<GestureRecognizer> gestures = new List<GestureRecognizer>();
+
+    private Touch lastTouch;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,5 +30,6 @@ public class GesturesManager : MonoBehaviour
         {
             gestures[i].TrackTouches(touches);
         }
+        lastTouch = touches[0];
     }
 }
