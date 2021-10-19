@@ -8,13 +8,12 @@ public class GesturesManager : MonoBehaviour
 {
     private readonly List<GestureRecognizer> gestures = new List<GestureRecognizer>();
 
-    private Touch lastTouch;
     // Start is called before the first frame update
     void Start()
     {
         EnhancedTouchSupport.Enable();
 
-        gestures.Add(new GestureRecognizer());
+        gestures.Add(new TapGesture());
     }
 
     // Update is called once per frame
@@ -26,10 +25,11 @@ public class GesturesManager : MonoBehaviour
             return;
         }
 
+        var deltaTime = Time.deltaTime;
         for (int i = 0; i < gestures.Count; i++)
         {
             gestures[i].TrackTouches(touches);
+            gestures[i].OnUpdate(deltaTime);
         }
-        lastTouch = touches[0];
     }
 }

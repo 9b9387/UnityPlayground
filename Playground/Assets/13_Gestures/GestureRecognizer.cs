@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Owlet;
 using UnityEngine;
@@ -11,7 +10,7 @@ public class GestureRecognizer
     private readonly HashSet<GestureRecognizer> requireGestureRecognizersToFailThatHaveFailed = new HashSet<GestureRecognizer>();
     private readonly HashSet<GestureRecognizer> requireGestureRecognizersToFail = new HashSet<GestureRecognizer>();
 
-    private GestureRecognizerState state = GestureRecognizerState.Possible;
+    protected GestureRecognizerState state = GestureRecognizerState.Possible;
 
     public GestureRecognizer()
     {
@@ -27,19 +26,35 @@ public class GestureRecognizer
             {
                 case UnityEngine.InputSystem.TouchPhase.Began:
                     {
-                        ProcessTouchBegan(touches);
+                        if (state == GestureRecognizerState.Possible
+                            && trackedTouches.Contains(touch.touchId) == false)
+                        {
+                            trackedTouches.Add(touch.touchId);
+                            ProcessTouchBegan(touch);
+                        }
                         break;
                     }
                 case UnityEngine.InputSystem.TouchPhase.Moved:
                 case UnityEngine.InputSystem.TouchPhase.Stationary:
                     {
-                        ProcessTouchesMoved();
+                        if (trackedTouches.Contains(touch.touchId))
+                        {
+                            ProcessTouchesMoved(touch);
+                        }
                         break;
                     }
                 case UnityEngine.InputSystem.TouchPhase.Ended:
                 case UnityEngine.InputSystem.TouchPhase.Canceled:
                     {
-                        ProcessTouchesEnded();
+                        if (trackedTouches.Contains(touch.touchId))
+                        {
+                            ProcessTouchesEnded(touch);
+                            trackedTouches.Remove(touch.touchId);
+                            if(trackedTouches.Count == 0)
+                            {
+                                Reset();
+                            }
+                        }
                         break;
                     }
                 case UnityEngine.InputSystem.TouchPhase.None:
@@ -48,63 +63,74 @@ public class GestureRecognizer
         }
     }
 
-    protected virtual void ProcessTouchBegan(IReadOnlyList<Touch> touches)
+    protected virtual void ProcessTouchBegan(Touch touch)
     {
-        foreach (var touch in touches)
-        {
-            if(state == GestureRecognizerState.Possible && trackedTouches.Contains(touch.touchId) == false)
-            {
-                trackedTouches.Add(touch.touchId);
-            }
-        }
+        //Debug.Log($"ProcessTouchBegan {state} {touch.touchId}");
     }
 
-    protected virtual void ProcessTouchesMoved()
+    protected virtual void ProcessTouchesMoved(Touch touch)
+    {
+        //Debug.Log($"ProcessTouchesMoved {state} {touch.touchId}");
+    }
+
+    protected virtual void ProcessTouchesEnded(Touch touch)
+    {
+        //Debug.Log($"ProcessTouchesEnded {state} {touch.touchId}");
+    }
+
+    public virtual void OnUpdate(float delta)
     {
 
     }
 
-    protected virtual void ProcessTouchesEnded()
-    {
-        if(trackedTouches.Count == 0)
-        {
-            SetState(GestureRecognizerState.Ended);
-            return;
-        }
+    //protected void SetState(GestureRecognizerState value)
+    //{
+    //    if (value == GestureRecognizerState.Failed)
+    //    {
+    //        FailGesture();
+    //        return;
+    //    }
 
-        SetState(GestureRecognizerState.Failed);
-    }
+    //    if(value == GestureRecognizerState.Ended)
+    //    {
+    //        EndGesture();
+    //        return;
+    //    }
 
-    protected void SetState(GestureRecognizerState value)
-    {
-        if (value == GestureRecognizerState.Failed)
-        {
-            FailGesture();
-            return;
-        }
-    }
+    //    state = value;
+    //}
 
-    private bool HasAllRequiredFailGesturesToEndFromEndPending()
-    {
-        return requireGestureRecognizersToFail.SetEquals(requireGestureRecognizersToFailThatHaveFailed);
-    }
+    //private bool HasAllRequiredFailGesturesToEndFromEndPending()
+    //{
+    //    return requireGestureRecognizersToFail.SetEquals(requireGestureRecognizersToFailThatHaveFailed);
+    //}
 
-    private void FailGesture()
-    {
-        state = GestureRecognizerState.Failed;
-        StateChanged();
-        foreach (GestureRecognizer gesture in failGestures)
-        {
-            gesture.requireGestureRecognizersToFailThatHaveFailed.Add(this);
-            if (gesture.state == GestureRecognizerState.EndPending)
-            {
-                if (gesture.HasAllRequiredFailGesturesToEndFromEndPending())
-                {
-                    gesture.SetState(GestureRecognizerState.Ended);
-                }
-            }
-        }
-    }
+    //protected void FailGesture()
+    //{
+    //    state = GestureRecognizerState.Failed;
+    //    StateChanged();
+    //    foreach (GestureRecognizer gesture in failGestures)
+    //    {
+    //        gesture.requireGestureRecognizersToFailThatHaveFailed.Add(this);
+    //        if (gesture.state == GestureRecognizerState.EndPending)
+    //        {
+    //            if (gesture.HasAllRequiredFailGesturesToEndFromEndPending())
+    //            {
+    //                gesture.SetState(GestureRecognizerState.Ended);
+    //            }
+    //        }
+    //    }
+    //}
+
+    //protected void EndGesture()
+    //{
+
+    //    Debug.Log("EndGesture");
+    //    state = GestureRecognizerState.Ended;
+    //    StateChanged();
+
+    //    SetState(GestureRecognizerState.Possible);
+    //}
 
     public virtual void Reset()
     {
@@ -124,7 +150,8 @@ public class GestureRecognizer
         //Pressure = 0.0f;
         //velocityTracker.Reset();
         //RemoveFromActiveGestures();
-        SetState(GestureRecognizerState.Possible);
+        //SetState(GestureRecognizerState.Possible);
+        state = GestureRecognizerState.Possible;
     }
 
     protected virtual void StateChanged()
