@@ -54,8 +54,8 @@ namespace Owlet
     public enum TouchState
     {
         Untouched = 0x00,
-        Began = 0x10,
-        Ended = 0x20
+        Touching = 0x10,
+        Finished = 0x20
     }
 
     /// <summary>

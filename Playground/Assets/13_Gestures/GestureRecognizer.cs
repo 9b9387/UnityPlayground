@@ -3,18 +3,21 @@ using Owlet;
 using UnityEngine;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
-public class GestureRecognizer
+public class GestureRecognizer : ScriptableObject
 {
     protected readonly List<int> trackedTouches = new List<int>();
     private readonly HashSet<GestureRecognizer> failGestures = new HashSet<GestureRecognizer>();
     private readonly HashSet<GestureRecognizer> requireGestureRecognizersToFailThatHaveFailed = new HashSet<GestureRecognizer>();
     private readonly HashSet<GestureRecognizer> requireGestureRecognizersToFail = new HashSet<GestureRecognizer>();
 
-    protected GestureRecognizerState state = GestureRecognizerState.Possible;
+    protected GestureState state;
+
+    public int minRequireTouchCount = 1;
+    public int maxRequireTouchCount = 1;
 
     public GestureRecognizer()
     {
-
+        state = new GestureState();
     }
 
     public void TrackTouches(IReadOnlyList<Touch> touches)
@@ -25,38 +28,38 @@ public class GestureRecognizer
             switch (touch.phase)
             {
                 case UnityEngine.InputSystem.TouchPhase.Began:
+                {
+                    if (state.IsTouchState(TouchState.Untouched)
+                        && trackedTouches.Contains(touch.touchId) == false)
                     {
-                        if (state == GestureRecognizerState.Possible
-                            && trackedTouches.Contains(touch.touchId) == false)
-                        {
-                            trackedTouches.Add(touch.touchId);
-                            ProcessTouchBegan(touch);
-                        }
-                        break;
+                        trackedTouches.Add(touch.touchId);
+                        ProcessTouchBegan(touch);
                     }
+                    break;
+                }
                 case UnityEngine.InputSystem.TouchPhase.Moved:
                 case UnityEngine.InputSystem.TouchPhase.Stationary:
+                {
+                    if (trackedTouches.Contains(touch.touchId))
                     {
-                        if (trackedTouches.Contains(touch.touchId))
-                        {
-                            ProcessTouchesMoved(touch);
-                        }
-                        break;
+                        ProcessTouchesMoved(touch);
                     }
+                    break;
+                }
                 case UnityEngine.InputSystem.TouchPhase.Ended:
                 case UnityEngine.InputSystem.TouchPhase.Canceled:
+                {
+                    if (trackedTouches.Contains(touch.touchId))
                     {
-                        if (trackedTouches.Contains(touch.touchId))
+                        ProcessTouchesEnded(touch);
+                        trackedTouches.Remove(touch.touchId);
+                        if(trackedTouches.Count == 0)
                         {
-                            ProcessTouchesEnded(touch);
-                            trackedTouches.Remove(touch.touchId);
-                            if(trackedTouches.Count == 0)
-                            {
-                                Reset();
-                            }
+                            Reset();
                         }
-                        break;
                     }
+                    break;
+                }
                 case UnityEngine.InputSystem.TouchPhase.None:
                 default: break;
             }
@@ -151,7 +154,7 @@ public class GestureRecognizer
         //velocityTracker.Reset();
         //RemoveFromActiveGestures();
         //SetState(GestureRecognizerState.Possible);
-        state = GestureRecognizerState.Possible;
+        state.Reset();
     }
 
     protected virtual void StateChanged()
