@@ -3,10 +3,75 @@ guid: 52fd55fdfd0534072bdb4bb16b99a351
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Button
+    second: {fileID: 2100000, guid: 1eadd226c85ea4cbe9c08ac6c2e73be1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cap_Emblem
+    second: {fileID: 2100000, guid: 114b10a6439664fabb24020c8f4344f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cloth_Blue
+    second: {fileID: 2100000, guid: be4b1d48aa07d408fb19f09c4caeb771, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cloth_Red
+    second: {fileID: 2100000, guid: c19317647ec784050afda6d2d32e6a61, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cloth_White
+    second: {fileID: 2100000, guid: 4f0b5e67505e5438581414685bf7dad0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EyeL
+    second: {fileID: 2100000, guid: c522c04de79194102b46c65f592d5893, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EyeR
+    second: {fileID: 2100000, guid: abe016315fdd04dbe8ad319f074e5be7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hair
+    second: {fileID: 2100000, guid: 3f7afa188168248b1b35d6de04a5195c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mouth_Inside
+    second: {fileID: 2100000, guid: 7c8fb8a36ac7d456e8b002f3b79c7997, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PupilL
+    second: {fileID: 2100000, guid: 34077d75b1eac4e39887544122e558fd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PupilR
+    second: {fileID: 2100000, guid: 6a87a2b2508b74ec7b960ed4012ca3eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shoes
+    second: {fileID: 2100000, guid: 52ffc8b8251394cf7a06bc1451368844, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skin
+    second: {fileID: 2100000, guid: 9413ec419e05e47ec98e99aaee91a1fd, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
+    materialName: 2
     materialSearch: 1
     materialLocation: 1
   animations:
