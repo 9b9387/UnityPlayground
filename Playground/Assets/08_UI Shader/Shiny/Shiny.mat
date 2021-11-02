@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UIFlowing
+  m_Name: Shiny
   m_Shader: {fileID: 4800000, guid: 8aecf1186f90243dfa9a1b825ca9bef5, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4

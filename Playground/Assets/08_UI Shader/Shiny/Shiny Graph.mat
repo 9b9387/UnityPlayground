@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UIGlow
-  m_Shader: {fileID: -6465566751694194690, guid: fb6a5f3925a5040bf82cab0880a22dce, type: 3}
+  m_Name: Shiny Graph
+  m_Shader: {fileID: -6465566751694194690, guid: a1d64ee2b2dbd420d801dd29801ba7fc, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: aeb18f3d49aa44d0c840306f2de41b65, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -76,7 +76,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - OutlineThickness: 1
+    - Vector1_ffaa0262ef894d10a3f23b56bdd47885: 1
+    - Vector1_ffaa0262ef894d10a3f23b56bdd47885_1: 20
+    - Vector1_ffaa0262ef894d10a3f23b56bdd47885_2: 0.5
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -88,9 +90,6 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _FlowAngle: 0.33
-    - _FlowSpeed: 0.5
-    - _FlowWidth: 5.83
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -107,14 +106,13 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - OutlineColor: {r: 1, g: 0, b: 0, a: 0}
+    - Color_21ac834349f641acb1e0f4c72ebe461b: {r: 1, g: 1, b: 1, a: 0.39215687}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FlowColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &107781931238408308
+--- !u!114 &7329157437890473179
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

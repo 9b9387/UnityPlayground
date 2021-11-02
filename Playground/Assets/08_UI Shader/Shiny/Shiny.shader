@@ -1,12 +1,15 @@
-Shader "UI/Flowing" 
+// Shiny.shader
+// Author: shihongyang@weile.com
+
+Shader "Owlet/2D Unlit/Shiny"
 {
     Properties
     {
         [PerRendererData]_MainTex("Texture2D", 2D) = "white" {}
-        _FlowSpeed("Flow Speed", Range(-2, 2)) = 0.5
-        _FlowWidth("Flow Width", Range(1, 10)) = 5.83
-        _FlowAngle("Flow Angle", Range(-1, 1)) = 0.33
-        _FlowColor("Flow Color", Color) = (1, 1, 1, 0.5)
+        _ShinySpeed("Shiny Speed", Range(-2, 2)) = 0.5
+        _ShinyWidth("Shiny Width", Range(1, 10)) = 5.83
+        _ShinyAngle("Shiny Angle", Range(-1, 1)) = 0.33
+        _ShinyColor("Shiny Color", Color) = (1, 1, 1, 0.5)
     }
 
     SubShader
@@ -20,7 +23,7 @@ Shader "UI/Flowing"
         }
         Pass
         {
-            Name "UI Flowing"
+            Name "Owlet 2D Shiny"
             Tags
             {
                 "LightMode" = "UniversalForward"
@@ -63,10 +66,10 @@ Shader "UI/Flowing"
             // Graph Properties
             CBUFFER_START(UnityPerMaterial)
             float4 _MainTex_TexelSize;
-            float _FlowSpeed;
-            float _FlowWidth;
-            float _FlowAngle;
-            float4 _FlowColor;
+            float _ShinySpeed;
+            float _ShinyWidth;
+            float _ShinyAngle;
+            float4 _ShinyColor;
             CBUFFER_END
             
             // Object and Global properties
@@ -94,11 +97,11 @@ Shader "UI/Flowing"
                 UnityTexture2D unity_texture = UnityBuildTexture2DStructNoScale(_MainTex);
                 half4 col = SAMPLE_TEXTURE2D(unity_texture.tex, unity_texture.samplerstate, input.uv.xy);
 
-				float x = input.uv.x + input.uv.y * _FlowAngle;
-				float v = sin(x - _Time.w * _FlowSpeed);
-				v = smoothstep(1 - _FlowWidth / 1000, 1.0, v);
-				float3 target = v * _FlowColor.xyz * _FlowColor.a + col.rgb;
-				col.rgb = lerp(col.rgb, target * col.a , _FlowColor.a);
+				float x = input.uv.x + input.uv.y * _ShinyAngle;
+				float v = sin(x - _Time.w * _ShinySpeed);
+				v = smoothstep(1 - _ShinyWidth / 1000, 1.0, v);
+				float3 target = v * _ShinyColor.xyz * _ShinyColor.a + col.rgb;
+				col.rgb = lerp(col.rgb, target * col.a , _ShinyColor.a);
 				return half4(target, col.a);
             } 
             ENDHLSL
