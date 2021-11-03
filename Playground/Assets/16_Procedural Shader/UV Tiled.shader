@@ -1,9 +1,9 @@
-Shader "Owlet/Procedural/Ring"
+Shader "Owlet/Procedural/UV Tiled"
 {
     Properties
     {
-        _InnerSize("Inner Size", Range(0, 1)) = 0.5
-        _OuterSize("Outer Size", Range(0, 1)) = 0.7
+        _Amount("Amount", Float) = 5.0
+        _Size("Size", Range(0, 1)) = 0.9
         _BaseColor("Color", Color) = (1, 1, 1, 1)
     }
 
@@ -35,8 +35,8 @@ Shader "Owlet/Procedural/Ring"
 
             CBUFFER_START(UnityPerMaterial)
                 half4 _BaseColor;
-                float _InnerSize;
-                float _OuterSize;
+                float _Amount;
+                float _Size;
             CBUFFER_END
 
             struct Attributes
@@ -71,9 +71,9 @@ Shader "Owlet/Procedural/Ring"
             half4 frag(Varyings input) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(input);
-                float4 inner = Ellipse(input.uv, _InnerSize, _InnerSize);
-                float4 outer = Ellipse(input.uv, _OuterSize, _OuterSize);
-                return _BaseColor * (outer - inner);
+                float2 uv = frac(input.uv * _Amount);
+                float4 color = Ellipse(uv, _Size, _Size);
+                return _BaseColor * color;
             }
             ENDHLSL
         }

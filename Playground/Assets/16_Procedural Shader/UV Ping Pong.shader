@@ -1,9 +1,9 @@
-Shader "Owlet/Procedural/Ring"
+Shader "Owlet/Procedural/UV Ping Pong"
 {
     Properties
     {
-        _InnerSize("Inner Size", Range(0, 1)) = 0.5
-        _OuterSize("Outer Size", Range(0, 1)) = 0.7
+        _Offset("Offset", Range(0, 1)) = 0.9
+        _Size("Size", Range(0, 1)) = 0.9
         _BaseColor("Color", Color) = (1, 1, 1, 1)
     }
 
@@ -35,8 +35,8 @@ Shader "Owlet/Procedural/Ring"
 
             CBUFFER_START(UnityPerMaterial)
                 half4 _BaseColor;
-                float _InnerSize;
-                float _OuterSize;
+                float _Size;
+                float _Offset;
             CBUFFER_END
 
             struct Attributes
@@ -71,9 +71,11 @@ Shader "Owlet/Procedural/Ring"
             half4 frag(Varyings input) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(input);
-                float4 inner = Ellipse(input.uv, _InnerSize, _InnerSize);
-                float4 outer = Ellipse(input.uv, _OuterSize, _OuterSize);
-                return _BaseColor * (outer - inner);
+                float t = (_SinTime.w + 1) / 2;
+                float offset_x = lerp(-_Offset, _Offset, t);
+                float2 uv = input.uv + float2(offset_x, 0);
+                float4 color = AdvancePolygon(uv, 8, 0.5 * _Size, _Size);
+                return _BaseColor * color;
             }
             ENDHLSL
         }

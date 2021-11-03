@@ -1,4 +1,4 @@
-Shader "Owlet/Procedural/Ellipse"
+Shader "Owlet/Procedural/Advance Polygon"
 {
     Properties
     {
