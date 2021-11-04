@@ -1,8 +1,10 @@
-Shader "Owlet/Procedural/Color Soft Split"
+Shader "Owlet/Procedural/Pattern Stripes"
 {
     Properties
     {
         _BaseColor("Color", Color) = (1, 1, 1, 1)
+        _Frequency("Frequency", Vector) = (2, 2, 0, 0)
+        _Rotation("Rotation", Float) = 0.785
     }
 
     SubShader
@@ -29,9 +31,12 @@ Shader "Owlet/Procedural/Color Soft Split"
             #pragma fragment frag
             
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Assets/Shaders/Procedural.hlsl"
 
             CBUFFER_START(UnityPerMaterial)
                 half4 _BaseColor;
+                half2 _Frequency;
+                half _Rotation;
             CBUFFER_END
 
             struct Attributes
@@ -67,10 +72,19 @@ Shader "Owlet/Procedural/Color Soft Split"
             {
                 UNITY_SETUP_INSTANCE_ID(input);
 
-                float t = (sin(_Time.y * 2) + 1) / 2;
-                float r = 0.3; // todo convert to property
-                half s = smoothstep(t - r, t, input.uv.y);
-                return lerp(0, _BaseColor, s);
+                float2 center = float2(0.5, 0.5);
+                float2 uv = input.uv - center;
+                float s = sin(_Rotation);
+                float c = cos(_Rotation);
+                float2x2 rMatrix = float2x2(c, -s, s, c);
+                rMatrix *= 0.5;
+                rMatrix += 0.5;
+                rMatrix = rMatrix * 2 - 1;
+                uv.xy = mul(uv.xy, rMatrix);
+                uv += center;
+                uv.y += _Time.y;
+
+                return half4(Checkerboard(uv, 0, _BaseColor.xyz, _Frequency.xy), 0);
             }
             ENDHLSL
         }
