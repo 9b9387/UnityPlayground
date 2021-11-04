@@ -70,19 +70,14 @@ Shader "Owlet/Procedural/UV Rotation"
             {
                 UNITY_SETUP_INSTANCE_ID(input);
 
-                float rotation = _Time.y;
+                float scale = 1 / (((sin(_Time.y * 2) + 1) / 2) * 0.7 + 0.3);
                 float2 center = float2(0.5, 0.5);
                 float2 uv = input.uv - center;
-                float s = sin(rotation);
-                float c = cos(rotation);
-                float2x2 rMatrix = float2x2(c, -s, s, c);
-                rMatrix *= 0.5;
-                rMatrix += 0.5;
-                rMatrix = rMatrix * 2 - 1;
-                uv.xy = mul(uv.xy, rMatrix);
+                float2x2 sMatrix = float2x2(scale, 0, 0, scale);
+                uv.xy = mul(uv.xy, sMatrix);
                 uv += center;
 
-                float4 color = Polygon(uv, 3, _Size, _Size);
+                float4 color = Polygon(uv, 7, _Size, _Size);
                 return _BaseColor * color;
             }
             ENDHLSL
