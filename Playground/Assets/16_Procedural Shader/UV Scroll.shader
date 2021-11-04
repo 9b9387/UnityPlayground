@@ -1,7 +1,8 @@
-Shader "Owlet/Procedural/UV Scale"
+Shader "Owlet/Procedural/UV Scroll"
 {
     Properties
     {
+        _Direction("Direction", Vector) = (1, 1, 0, 0)
         _Size("Size", Range(0, 1)) = 0.9
         _BaseColor("Color", Color) = (1, 1, 1, 1)
     }
@@ -35,6 +36,7 @@ Shader "Owlet/Procedural/UV Scale"
             CBUFFER_START(UnityPerMaterial)
                 half4 _BaseColor;
                 float _Size;
+                float4 _Direction;
             CBUFFER_END
 
             struct Attributes
@@ -69,15 +71,9 @@ Shader "Owlet/Procedural/UV Scale"
             half4 frag(Varyings input) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(input);
-
-                float scale = 1 / (((sin(_Time.y * 2) + 1) / 2) * 0.7 + 0.3);
-                float2 center = float2(0.5, 0.5);
-                float2 uv = input.uv - center;
-                float2x2 sMatrix = float2x2(scale, 0, 0, scale);
-                uv.xy = mul(uv.xy, sMatrix);
-                uv += center;
-
-                float4 color = Polygon(uv, 7, _Size, _Size);
+                float2 offset = _Time.y * float2(_Direction.x, _Direction.y);
+                float2 uv = fmod(input.uv.xy + offset, float2(1.0, 1.0));
+                float4 color = AdvancePolygon(uv, 4, 0.5 * _Size, _Size);
                 return _BaseColor * color;
             }
             ENDHLSL
