@@ -69,7 +69,7 @@ Shader "Owlet/Procedural/Color Soft Split"
 
                 float t = (sin(_Time.y * 2) + 1) / 2;
                 float r = 0.3;
-                half s = smoothstep(t - r, t, input.uv);
+                half s = smoothstep(t - r, t, input.uv.y);
                 return lerp(0, _BaseColor, s);
             }
             ENDHLSL
