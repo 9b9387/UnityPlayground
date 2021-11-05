@@ -1,10 +1,9 @@
-Shader "Owlet/Procedural/Noise Voronoi Cells"
+Shader "Owlet/Procedural/Pattern Clover"
 {
     Properties
     {
         _BaseColor("Color", Color) = (1, 1, 1, 1)
-        _Density("Cell Density", Float) = 5
-        _Angle("Angle Offset", Float) = 5
+        _Count("Count", Float) = 3
     }
 
     SubShader
@@ -31,12 +30,11 @@ Shader "Owlet/Procedural/Noise Voronoi Cells"
             #pragma fragment frag
             
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            #include "Assets/Shaders/SimpleNoise.hlsl"
+            #include "Assets/Shaders/Procedural.hlsl"
 
             CBUFFER_START(UnityPerMaterial)
                 half4 _BaseColor;
-                half _Density;
-                half _Angle;
+                half _Count;
             CBUFFER_END
 
             struct Attributes
@@ -71,11 +69,21 @@ Shader "Owlet/Procedural/Noise Voronoi Cells"
             half4 frag(Varyings input) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(input);
-                float noise;
-                float cells;
 
-                Voronoi(input.uv.xy, _Time.y * _Angle, _Density, noise, cells);
-                return _BaseColor * cells;
+                float rotation = _Time.y;
+                float2 center = float2(0.5, 0.5);
+                float2 uv = input.uv - center;
+                float s = sin(rotation);
+                float c = cos(rotation);
+                float2x2 rMatrix = float2x2(c, -s, s, c);
+                rMatrix *= 0.5;
+                rMatrix += 0.5;
+                rMatrix = rMatrix * 2 - 1;
+                uv.xy = mul(uv.xy, rMatrix);
+                // uv += center;
+
+                float edge0 = cos(atan2(uv.y, uv.x) * _Count);
+                return _BaseColor * (1 - smoothstep(edge0, edge0 + 0.02, length(uv) * 2));
             }
             ENDHLSL
         }
