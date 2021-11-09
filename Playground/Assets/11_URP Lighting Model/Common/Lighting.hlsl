@@ -18,9 +18,13 @@ void PhongSpecular_float(float specularStrength, float3 lightDir, float3 normal,
 void LightingSpecular_float(float3 lightColor, float3 lightDir, float3 normal, float3 viewDir, 
     float smoothness, out float3 specular)
 {
-    float3 halfVec = SafeNormalize(float3(lightDir) + SafeNormalize(viewDir));
-    float NdotH = saturate(dot(normalize(normal), halfVec));
-    float modifier = pow(NdotH, smoothness);
+    smoothness = exp2(10 * smoothness + 1);
+    normal = normalize(normal);
+    viewDir = SafeNormalize(viewDir);
+
+    float3 halfVec = SafeNormalize(float3(lightDir) + float3(viewDir));
+    half NdotH = saturate(dot(normal, halfVec));
+    half modifier = pow(NdotH, smoothness);
     specular = lightColor * modifier;
 }
 

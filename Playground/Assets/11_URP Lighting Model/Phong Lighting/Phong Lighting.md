@@ -2,10 +2,8 @@ Phong光照模型用来表现表面光滑的物体，光滑物体表面相对于
 
 在Phong光照模型中Specular项的计算公式如下：
 ```
-Specular = Ks * pow(saturate(dot(R, V)), Gloss)
+Specular = Ks * pow(saturate(dot(reflect(-lightDir, normal), viewDir)), Gloss)
 ```
 
 - Ks为高光强度
-- R为光线经法向量反射后的向量
-- V为视线向量
 - Gloss为光滑度
