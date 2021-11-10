@@ -960,6 +960,9 @@
             "m_Id": "15340b1d901a434f868b9269296612a0"
         },
         {
+            "m_Id": "c2f7737293d9442d9f025f41f0975757"
+        },
+        {
             "m_Id": "c641c9d575384245bd9e0ca31490597b"
         }
     ],
@@ -1380,6 +1383,21 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "SurfaceDescription.BaseColor"
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "c2f7737293d9442d9f025f41f0975757",
+    "m_Id": 4,
+    "m_DisplayName": "DistanceAtten",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "DistanceAtten",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
 }
 
 {

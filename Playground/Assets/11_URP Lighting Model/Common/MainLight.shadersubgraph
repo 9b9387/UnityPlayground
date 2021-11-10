@@ -73,6 +73,20 @@
                 },
                 "m_SlotId": 3
             }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "e3a8cec3d2334037acf1d4474d995233"
+                },
+                "m_SlotId": 4
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "f8cbd5f5ff8b41dab4cb7aed26835fd5"
+                },
+                "m_SlotId": 4
+            }
         }
     ],
     "m_VertexContext": {
@@ -130,12 +144,42 @@
 {
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "0c954df8b98e4908aff1fb792916db16",
+    "m_Id": 4,
+    "m_DisplayName": "DistanceAtten",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "DistanceAtten",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "18a819e47643495093d5d4c574b829a6",
     "m_Id": 3,
     "m_DisplayName": "ShadowAtten",
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "ShadowAtten",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "190de3027d4c46ada10e5ef93be41cc7",
+    "m_Id": 4,
+    "m_DisplayName": "DistanceAtten",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "DistanceAtten",
     "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
@@ -261,10 +305,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -730.5000610351563,
-            "y": -168.49998474121095,
+            "x": -707.0,
+            "y": -189.0,
             "width": 208.0,
-            "height": 314.5
+            "height": 316.0
         }
     },
     "m_Slots": [
@@ -334,6 +378,9 @@
             "m_Id": "05837594336b49828898c17f83b90bf4"
         },
         {
+            "m_Id": "190de3027d4c46ada10e5ef93be41cc7"
+        },
+        {
             "m_Id": "41782375a5594215a14fa3cf2457e82c"
         }
     ],
@@ -346,7 +393,7 @@
     },
     "m_SourceType": 0,
     "m_FunctionName": "MainLight",
-    "m_FunctionSource": "14afd7f75b6624062bfff1e9ab053091",
+    "m_FunctionSource": "6f4605cfc268946e0bdb585d3538e6b2",
     "m_FunctionBody": "Enter function body here..."
 }
 
@@ -362,10 +409,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -73.99995422363281,
-            "y": -169.50001525878907,
-            "width": 102.50000762939453,
-            "height": 77.0
+            "x": -146.0,
+            "y": -189.0,
+            "width": 126.0,
+            "height": 149.0
         }
     },
     "m_Slots": [
@@ -374,6 +421,9 @@
         },
         {
             "m_Id": "200d5069b11349f3893eea20fb74f902"
+        },
+        {
+            "m_Id": "0c954df8b98e4908aff1fb792916db16"
         },
         {
             "m_Id": "18a819e47643495093d5d4c574b829a6"

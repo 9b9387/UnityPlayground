@@ -821,6 +821,21 @@
 {
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "7867be597d19433ebebdc1b8095bb20f",
+    "m_Id": 4,
+    "m_DisplayName": "DistanceAtten",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "DistanceAtten",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "7a28618418d04dfba12099eb02b32705",
     "m_Id": 1,
     "m_DisplayName": "X",
@@ -950,6 +965,9 @@
             "m_Id": "df72483e128f4a2fb0d077c75935e721"
         },
         {
+            "m_Id": "7867be597d19433ebebdc1b8095bb20f"
+        },
+        {
             "m_Id": "601d60e7e74744548f14e6ea1b44cab6"
         }
     ],
@@ -1048,8 +1066,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 175.9998779296875,
-            "y": 515.0,
+            "x": 142.9999542236328,
+            "y": 653.0,
             "width": 149.0,
             "height": 34.0
         }
@@ -1364,10 +1382,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -573.674072265625,
-            "y": 809.7898559570313,
-            "width": 0.0,
-            "height": 0.0
+            "x": -577.0000610351563,
+            "y": 800.0000610351563,
+            "width": 119.00000762939453,
+            "height": 34.0
         }
     },
     "m_Slots": [
