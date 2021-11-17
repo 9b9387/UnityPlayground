@@ -117,11 +117,10 @@ void GlossyEnvReflectionColor_float(half3 reflectVector, half perceptualRoughnes
     #if defined(SHADERGRAPH_PREVIEW)
     color = 1;
     #else
-    half mip = perceptualRoughness * UNITY_SPECCUBE_LOD_STEPS;
+    half mip = PerceptualRoughnessToMipmapLevel(perceptualRoughness);
     half4 encodedIrradiance = SAMPLE_TEXTURECUBE_LOD(unity_SpecCube0, samplerunity_SpecCube0, reflectVector, mip);
-    //color = encodedIrradiance.rgb;
+    color = encodedIrradiance.rgb;
     color = DecodeHDREnvironment(encodedIrradiance, unity_SpecCube0_HDR);
-    //color = _GlossyEnvironmentColor.rgb;
     #endif
 }
 
