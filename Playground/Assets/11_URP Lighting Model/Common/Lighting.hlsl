@@ -110,13 +110,19 @@ void AdditionalLights_float(float3 SpecColor, float Smoothness, float3 WorldPosi
     Specular = specularColor;
 }
 
-// half4 _GlossyEnvironmentColor;
-
+////////////////////////////////////////
+// 代码从
+// Lighting.hlsl中的
+// GlossyEnvironmentReflection方法
+// 复制修改
+////////////////////////////////////////
 void GlossyEnvReflectionColor_float(half3 reflectVector, half perceptualRoughness, out float3 color)
 {
     #if defined(SHADERGRAPH_PREVIEW)
     color = 1;
     #else
+    // 这里的mip值有点懵，调用方法是正常的，如果替换成方法的显示就有问题
+    // 好像里面的UNITY_SPECCUBE_LOD_STEPS值会变化
     half mip = PerceptualRoughnessToMipmapLevel(perceptualRoughness);
     half4 encodedIrradiance = SAMPLE_TEXTURECUBE_LOD(unity_SpecCube0, samplerunity_SpecCube0, reflectVector, mip);
     color = encodedIrradiance.rgb;

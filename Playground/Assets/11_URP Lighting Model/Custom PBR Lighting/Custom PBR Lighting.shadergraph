@@ -1270,8 +1270,8 @@
     ],
     "m_VertexContext": {
         "m_Position": {
-            "x": 7611.99951171875,
-            "y": 145.50003051757813
+            "x": 8338.0,
+            "y": 887.5
         },
         "m_Blocks": [
             {
@@ -1287,8 +1287,8 @@
     },
     "m_FragmentContext": {
         "m_Position": {
-            "x": 7611.99951171875,
-            "y": 345.5
+            "x": 8338.0,
+            "y": 1087.4998779296875
         },
         "m_Blocks": [
             {
@@ -1841,7 +1841,7 @@
     },
     "m_Name": "Metallic",
     "m_DefaultReferenceName": "Vector1_1372c60a51e4443e86ea1b2f1b291ef4",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_Metallic",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -6744,7 +6744,7 @@
     },
     "m_Name": "Smoothness",
     "m_DefaultReferenceName": "Vector1_ba1557d3fa114f658edd8df64fba1c31",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_Smoothness",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
