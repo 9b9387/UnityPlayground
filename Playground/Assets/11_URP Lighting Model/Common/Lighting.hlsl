@@ -110,4 +110,19 @@ void AdditionalLights_float(float3 SpecColor, float Smoothness, float3 WorldPosi
     Specular = specularColor;
 }
 
+// half4 _GlossyEnvironmentColor;
+
+void GlossyEnvReflectionColor_float(half3 reflectVector, half perceptualRoughness, out float3 color)
+{
+    #if defined(SHADERGRAPH_PREVIEW)
+    color = 1;
+    #else
+    half mip = perceptualRoughness * UNITY_SPECCUBE_LOD_STEPS;
+    half4 encodedIrradiance = SAMPLE_TEXTURECUBE_LOD(unity_SpecCube0, samplerunity_SpecCube0, reflectVector, mip);
+    //color = encodedIrradiance.rgb;
+    color = DecodeHDREnvironment(encodedIrradiance, unity_SpecCube0_HDR);
+    //color = _GlossyEnvironmentColor.rgb;
+    #endif
+}
+
 #endif
