@@ -121,11 +121,11 @@ void GlossyEnvReflectionColor_float(half3 reflectVector, half perceptualRoughnes
     #if defined(SHADERGRAPH_PREVIEW)
     color = 1;
     #else
-    // 这里的mip值有点懵，调用方法是正常的，如果替换成方法的显示就有问题
-    // 好像里面的UNITY_SPECCUBE_LOD_STEPS值会变化
+    // 这里的mip值有点懵，调用方法是正常的
+    // 如果替换成方法的实现，显示就会和URP Lit不一样
+    // 方法内的UNITY_SPECCUBE_LOD_STEPS值好像会变化
     half mip = PerceptualRoughnessToMipmapLevel(perceptualRoughness);
     half4 encodedIrradiance = SAMPLE_TEXTURECUBE_LOD(unity_SpecCube0, samplerunity_SpecCube0, reflectVector, mip);
-    color = encodedIrradiance.rgb;
     color = DecodeHDREnvironment(encodedIrradiance, unity_SpecCube0_HDR);
     #endif
 }

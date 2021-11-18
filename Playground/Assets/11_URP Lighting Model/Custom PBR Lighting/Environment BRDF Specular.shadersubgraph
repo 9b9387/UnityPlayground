@@ -1143,10 +1143,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 610.0001220703125,
-            "y": 743.0,
+            "x": 530.9999389648438,
+            "y": 589.5001220703125,
             "width": 298.5,
-            "height": 302.0
+            "height": 118.0
         }
     },
     "m_Slots": [
@@ -1162,7 +1162,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
@@ -1235,8 +1235,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -398.49993896484377,
-            "y": -743.0000610351563,
+            "x": -398.5000915527344,
+            "y": -754.0,
             "width": 114.5,
             "height": 34.0
         }
@@ -1452,8 +1452,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -440.0,
-            "y": 976.5,
+            "x": 18.500146865844728,
+            "y": 949.9998779296875,
             "width": 208.0,
             "height": 302.0
         }
@@ -1514,10 +1514,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -978.4999389648438,
-            "y": 925.5,
-            "width": 207.99998474121095,
-            "height": 314.5
+            "x": -416.99981689453127,
+            "y": 949.9998779296875,
+            "width": 206.0,
+            "height": 130.5
         }
     },
     "m_Slots": [
@@ -1527,7 +1527,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_PreviewMode": 2,
     "m_CustomColors": {
         "m_SerializableColors": []
@@ -1635,10 +1635,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -738.1087036132813,
-            "y": 925.3912963867188,
-            "width": 208.0,
-            "height": 278.0
+            "x": -176.5,
+            "y": 949.9998779296875,
+            "width": 131.0,
+            "height": 94.0
         }
     },
     "m_Slots": [
@@ -1651,7 +1651,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
@@ -1767,10 +1767,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -770.434814453125,
-            "y": 1293.478271484375,
-            "width": 0.0,
-            "height": 0.0
+            "x": -251.49986267089845,
+            "y": 1121.5,
+            "width": 206.0,
+            "height": 130.5
         }
     },
     "m_Slots": [
@@ -1780,7 +1780,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_PreviewMode": 2,
     "m_CustomColors": {
         "m_SerializableColors": []
@@ -2016,9 +2016,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1225.5,
+            "x": -1150.5001220703125,
             "y": -831.0,
-            "width": 124.99999237060547,
+            "width": 125.0,
             "height": 77.0
         }
     },
@@ -2886,7 +2886,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
@@ -2999,7 +2999,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
@@ -3715,7 +3715,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
@@ -3761,7 +3761,7 @@
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.GroupData",
     "m_ObjectId": "c2314f7aff6340519d5a63f7a54e587c",
-    "m_Title": "bdrf specular",
+    "m_Title": "bdrf specular color",
     "m_Position": {
         "x": -242.9999237060547,
         "y": -889.7738647460938
