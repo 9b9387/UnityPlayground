@@ -22,10 +22,10 @@ float3 DecodeNormal(float4 enc)
     return n;
 }
 
-void OutlineObject_float(float2 UV, float OutlineThickness, float DepthSensitivity, float NormalsSensitivity, out float Out)
+void OutlineObject_float(float2 UV, float OutlineThickness, float DepthSensitivity, float NormalsSensitivity, float d,  out float Out)
 {
-    float halfScaleFloor = floor(OutlineThickness * 0.5);
-    float halfScaleCeil = ceil(OutlineThickness * 0.5);
+    float halfScaleFloor = floor(OutlineThickness * 0.5 * d);
+    float halfScaleCeil = ceil(OutlineThickness * 0.5 * d);
     //float halfScaleFloor = OutlineThickness;
     //float halfScaleCeil = OutlineThickness;
     
@@ -48,14 +48,14 @@ void OutlineObject_float(float2 UV, float OutlineThickness, float DepthSensitivi
     float depthFiniteDifference0 = depthSamples[1] - depthSamples[0];
     float depthFiniteDifference1 = depthSamples[3] - depthSamples[2];
     float edgeDepth = sqrt(pow(depthFiniteDifference0, 2) + pow(depthFiniteDifference1, 2)) * 100;
-    float depthThreshold = (1/DepthSensitivity) * depthSamples[0];
+    float depthThreshold = (1 / DepthSensitivity) * depthSamples[0];
     edgeDepth = edgeDepth > depthThreshold ? 1 : 0;
 
     // Normals
     float3 normalFiniteDifference0 = normalSamples[1] - normalSamples[0];
     float3 normalFiniteDifference1 = normalSamples[3] - normalSamples[2];
     float edgeNormal = sqrt(dot(normalFiniteDifference0, normalFiniteDifference0) + dot(normalFiniteDifference1, normalFiniteDifference1));
-    edgeNormal = edgeNormal > (1/NormalsSensitivity) ? 1 : 0;
+    edgeNormal = edgeNormal > (1 / NormalsSensitivity) ? 1 : 0;
 
     float edge = max(edgeDepth, edgeNormal);
     Out = edge;
