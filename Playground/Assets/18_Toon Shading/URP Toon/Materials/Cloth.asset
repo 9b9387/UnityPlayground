@@ -150,7 +150,7 @@ Material:
     - _ShadeShift: 0
     - _ShadeToony: 0.5
     - _ShadingGradeRate: 1
-    - _Shadow1Feather: 0
+    - _Shadow1Feather: 0.15
     - _Shadow1Step: 0.5
     - _Shadow2Feather: 0
     - _Shadow2Step: 0
