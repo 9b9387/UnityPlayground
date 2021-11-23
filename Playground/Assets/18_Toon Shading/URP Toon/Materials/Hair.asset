@@ -109,7 +109,7 @@ Material:
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _BlendMode: 1
-    - _BlendRim: 0
+    - _BlendRim: 0.5
     - _BumpScale: 1
     - _CastHairShadowMask: 0
     - _Cull: 2
@@ -141,12 +141,12 @@ Material:
     - _ReceiveShadowRate: 1
     - _ReceiveShadows: 1
     - _RenderQueue: 2000
-    - _RimFeather: 0
+    - _RimFeather: 1
     - _RimFresnelPower: 1
     - _RimLift: 0
     - _RimLightingMix: 0
-    - _RimPow: 4
-    - _RimStep: 0.5
+    - _RimPow: 10
+    - _RimStep: 0.6
     - _ShadeShift: 0
     - _ShadeToony: 0.5
     - _ShadingGradeRate: 1
@@ -154,14 +154,14 @@ Material:
     - _Shadow1Step: 0.08
     - _Shadow2Feather: 0
     - _Shadow2Step: 0
-    - _Smoothness: 0.903
+    - _Smoothness: 0
     - _Specular2Mul: 0.5
-    - _SpecularFeather: 1
+    - _SpecularFeather: 0
     - _SpecularHighlights: 1
     - _SpecularShift1: 0
     - _SpecularShift2: 0
     - _SpecularShiftIntensity: 0
-    - _SpecularStep: 0.403
+    - _SpecularStep: 1
     - _SrcBlend: 1
     - _StencilChannel: 1
     - _StencilComp: 0
@@ -180,9 +180,9 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0.51523143, g: 0.33902228, b: 0.4151308, a: 1}
-    - _RimColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
     - _ShadeColor: {r: 1, g: 1, b: 1, a: 1}
     - _Shadow1Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
     - _Shadow2Color: {r: 0, g: 0, b: 0, a: 0}
-    - _SpecColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
+    - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
