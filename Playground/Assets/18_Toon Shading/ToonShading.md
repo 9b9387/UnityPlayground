@@ -42,3 +42,28 @@ Demo: DepthNormal Outline
 由于URP没有办法直接获取屏幕法线贴图，这里编写了一个`DepthNormalsFeature`来获取屏幕法线贴图。
 然后，同时检查深度和法线的连续性，判断边缘。
 ```
+
+### 光照
+卡通光照的特点是：
+- 减少色阶数量
+- 有明显的明暗交界线（Terminator Line）
+- 边缘光（Rim Light）
+
+#### 减少色阶数量，通常有两种常用方法：
+- Step/Smoothstep函数
+- RampMap贴图
+  
+#### 边缘光
+- Fresnel
+- Depth Offset
+
+#### 明暗交界线
+通过两个Smoothstep，一正一反相乘，就可以找到明暗交界线的位置。
+
+```
+Demo: Toon Diffuse Lighting
+简单的卡通光照的实现
+```
+
+#### 高光
+参考论文《Stylized Highlights for Cartoon Rendering》
