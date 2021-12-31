@@ -1,15 +1,9 @@
-﻿Shader "Playground/01 TransformTRS"
+﻿Shader "Playground/01 Reference"
 {
     Properties
     {
         // 基础色
         _Color ("BaseColor", Color) = (1.0, 1.0, 1.0, 1.0)
-        // 位移量
-        _Translate("Translate", Vector) = (0.0, 0.0, 0.0, 1.0)
-        // 缩放量
-        _Scale("Scale", Vector) = (1.0, 1.0, 1.0, 1.0)
-        // 旋转量
-        _Rotation("Rotation", Vector) = (0.0, 0.0, 0.0, 1.0)
     }
     SubShader
     {
@@ -20,6 +14,7 @@
             "RenderPipeline" = "UniversalPipeline" 
             "ShaderModel"="2.0"
         }
+        Cull Off
         Pass
         {
             HLSLPROGRAM
@@ -37,6 +32,7 @@
             float4 _Translate;
             float4 _Scale;
             float4 _Rotation;
+            float4 _CameraWorldPosition;
             CBUFFER_END
 
             struct Attributes
@@ -47,41 +43,21 @@
             struct Varyings
             {
                 float4 positionCS : SV_POSITION;
-                float3 normalWS : NORMAL;
+                float3 normalOS : NORMAL;
             };
-
-            // 变换矩阵
-            float4x4 TransfromTRS(float4 translate, float4 rotation, float4 scale)
-            {
-                float radX = radians(rotation.x);
-                float radY = radians(rotation.y);
-                float radZ = radians(rotation.z);
-
-                float sinX = sin(radX);
-                float cosX = cos(radX);
-                float sinY = sin(radY);
-                float cosY = cos(radY);
-                float sinZ = sin(radZ);
-                float cosZ = cos(radZ);
-
-                return float4x4(cosY * cosZ * scale.x, -cosY * sinZ * scale.y, sinY * scale.z, translate.x,
-                                (cosX * sinZ + sinX * sinY * cosZ) * scale.x, (cosX * cosZ - sinX * sinY * sinZ) * scale.y, -sinX * cosY * scale.z, translate.y,
-                                (sinX * sinZ - cosX * sinY * cosZ) * scale.x, (sinX * cosZ + cosX * sinY * sinZ) * scale.y, cosX * cosY * scale.z, translate.z,
-                                0.0, 0.0, 0.0, 1.0);
-            }
 
             // 顶点函数
             Varyings vert(Attributes input)
             {
                 Varyings output;
                 ZERO_INITIALIZE(Varyings, output);
-                // 应用顶点变换
-                float4 vectex = input.positionOS;
-                vectex = mul(TransfromTRS(_Translate, _Rotation, _Scale), vectex);
-                // MVP
-                output.positionCS = TransformObjectToHClip(vectex.xyz);
-                // Normal
-                output.normalWS = TransformObjectToWorldNormal(input.normalOS);
+
+                float3 positionWS = TransformObjectToWorld(input.positionOS);
+                float3 positionVS = TransformWorldToView(positionWS);
+                float4 positionCS = TransformWViewToHClip(float4(positionVS, 1));
+
+                output.positionCS = positionCS;
+                output.normalOS = TransformObjectToWorldNormal(input.normalOS);
                 return output;
             }
 
@@ -90,7 +66,7 @@
             {
                 // lambert lighting
                 Light mainLight = GetMainLight();
-                half NdotL = saturate(dot(input.normalWS, mainLight.direction));
+                half NdotL = saturate(dot(input.normalOS, mainLight.direction));
                 half3 diffuse = (mainLight.color * NdotL) * 0.5 + 0.5;
                 return half4(diffuse * _Color.xyz, 1);
             }
